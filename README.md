@@ -24,6 +24,17 @@ A dark, matte, tactile frame around a glassy, softly lit note area. Works in dar
 
 ![Glassfelt in light mode](images/light.png)
 
+## Adjust it
+
+Install the free **Style Settings** community plugin (Settings → Community plugins → Browse → "Style Settings"), then open Settings → Style Settings → Glassfelt. You can change:
+
+- **Colours:** the main, second and highlight colours, separately for light and dark mode.
+- **Note area:** background wash strength, glass tint and blur, corner roundness, home card width, plain page titles.
+- **Frame:** the outer frame, sidebar and raised-surface colours, and the grain texture.
+- **Motion:** turn off all motion, or just the note fade-in, the hover lift or the drifting header glows.
+
+Everything works without the plugin; it only adds the controls.
+
 ## Install
 
 Settings → Appearance → Themes → Manage → search "Glassfelt" → Install and use.

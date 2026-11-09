@@ -1,6 +1,7 @@
 /* Glassfelt — an Obsidian theme.
    Glassy aurora note area inside a dark, matte, tactile frame.
    Violet accent by default; your own accent (Settings → Appearance) still wins.
+   Adjust colours, glass, grain and motion with the "Style Settings" community plugin.
    Optional dashboard extras (.vault-dashboard, .vt-hero, .vt-cards): see README. */
 
 /* Default accent: violet #8b6cff. Obsidian applies a user-chosen accent
@@ -11,31 +12,203 @@ body {
   --accent-l: 71%;
 }
 
+/* @settings
+name: Glassfelt
+id: glassfelt
+settings:
+    -
+        id: vt-h-colours
+        title: Colours
+        type: heading
+        level: 2
+        collapsed: false
+    -
+        id: vt-a
+        title: Main colour
+        description: Page titles, heading bars, links glow, active tab and file, the note background wash
+        type: variable-themed-color
+        format: hex
+        opacity: false
+        default-light: '#8b6cff'
+        default-dark: '#8b6cff'
+    -
+        id: vt-b
+        title: Second colour
+        description: The other end of every gradient, card arrows
+        type: variable-themed-color
+        format: hex
+        opacity: false
+        default-light: '#22d3ee'
+        default-dark: '#22d3ee'
+    -
+        id: vt-c
+        title: Highlight colour
+        description: The pink end of page titles and the dot on the home header
+        type: variable-themed-color
+        format: hex
+        opacity: false
+        default-light: '#ff6b9a'
+        default-dark: '#ff6b9a'
+    -
+        id: vt-h-page
+        title: Note area
+        type: heading
+        level: 2
+        collapsed: true
+    -
+        id: vt-aurora-strength
+        title: Background wash strength
+        description: How strongly the colours glow behind notes (0 = none)
+        type: variable-number-slider
+        default: 1
+        min: 0
+        max: 2.5
+        step: 0.1
+    -
+        id: vt-glass-strength
+        title: Glass panel tint
+        description: How solid tables, callouts, embeds and cards look (higher = less see-through)
+        type: variable-number-slider
+        default: 1
+        min: 0
+        max: 4
+        step: 0.1
+    -
+        id: vt-blur
+        title: Glass blur
+        type: variable-number-slider
+        default: 14
+        min: 0
+        max: 40
+        step: 1
+        format: px
+    -
+        id: vt-radius
+        title: Corner roundness
+        type: variable-number-slider
+        default: 14
+        min: 0
+        max: 28
+        step: 1
+        format: px
+    -
+        id: vt-card-min
+        title: Home card width
+        description: Narrower fits more cards per row
+        type: variable-number-slider
+        default: 240
+        min: 160
+        max: 420
+        step: 10
+        format: px
+    -
+        id: vt-plain-titles
+        title: Plain page titles
+        description: Solid colour instead of the gradient
+        type: class-toggle
+        default: false
+    -
+        id: vt-h-frame
+        title: Frame (sidebars, tabs, menus)
+        type: heading
+        level: 2
+        collapsed: true
+    -
+        id: vt-m0
+        title: Outer frame
+        description: Icon strip, tab bar and title bar
+        type: variable-themed-color
+        format: hex
+        opacity: false
+        default-light: '#e4e2e8'
+        default-dark: '#121116'
+    -
+        id: vt-m1
+        title: Sidebars
+        type: variable-themed-color
+        format: hex
+        opacity: false
+        default-light: '#ebe9ef'
+        default-dark: '#17161c'
+    -
+        id: vt-m2
+        title: Raised surfaces
+        description: Menus, hovered rows, the word-count bar; the hover shade is worked out from this
+        type: variable-themed-color
+        format: hex
+        opacity: false
+        default-light: '#f6f5f8'
+        default-dark: '#1e1d24'
+    -
+        id: vt-grain-strength
+        title: Grain texture
+        description: The fine matte grain on the sidebars (0 = none)
+        type: variable-number-slider
+        default: 1
+        min: 0
+        max: 4
+        step: 0.1
+    -
+        id: vt-h-motion
+        title: Motion
+        description: All motion also switches off when your system's "Reduce motion" setting is on
+        type: heading
+        level: 2
+        collapsed: true
+    -
+        id: vt-no-motion
+        title: Turn off all motion
+        type: class-toggle
+        default: false
+    -
+        id: vt-no-note-fade
+        title: No fade-in when a note opens
+        type: class-toggle
+        default: false
+    -
+        id: vt-no-lift
+        title: No hover lift
+        description: Tables, callouts, embeds, cards and links stay still on hover
+        type: class-toggle
+        default: false
+    -
+        id: vt-static-glows
+        title: Still header glows
+        description: Stops the drifting colour glows and the pulsing dot on the home header
+        type: class-toggle
+        default: false
+*/
+
 body {
   --vt-a: #8b6cff;   /* violet */
   --vt-b: #22d3ee;   /* cyan */
   --vt-c: #ff6b9a;   /* pink */
   --vt-grad: linear-gradient(120deg, var(--vt-a), var(--vt-b));
   --vt-radius: 14px;
+  --vt-blur: 14px;
+  --vt-card-min: 240px;
+  --vt-glass-strength: 1;
+  --vt-aurora-strength: 1;
+  --vt-grain-strength: 1;
   --vt-ease: cubic-bezier(.2, .8, .2, 1);
 }
 body.theme-dark {
-  --vt-glass: rgba(255, 255, 255, 0.045);
+  --vt-glass: rgba(255, 255, 255, calc(0.045 * var(--vt-glass-strength)));
   --vt-glass-hi: rgba(255, 255, 255, 0.08);
   --vt-edge: rgba(255, 255, 255, 0.10);
   --vt-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
-  --vt-aurora-1: rgba(139, 108, 255, 0.16);
-  --vt-aurora-2: rgba(34, 211, 238, 0.10);
-  --vt-aurora-3: rgba(255, 107, 154, 0.08);
+  --vt-aurora-1: color-mix(in srgb, var(--vt-a) calc(16% * var(--vt-aurora-strength)), transparent);
+  --vt-aurora-2: color-mix(in srgb, var(--vt-b) calc(10% * var(--vt-aurora-strength)), transparent);
+  --vt-aurora-3: color-mix(in srgb, var(--vt-c) calc(8% * var(--vt-aurora-strength)), transparent);
 }
 body.theme-light {
-  --vt-glass: rgba(255, 255, 255, 0.55);
+  --vt-glass: rgba(255, 255, 255, calc(0.55 * var(--vt-glass-strength)));
   --vt-glass-hi: rgba(255, 255, 255, 0.8);
   --vt-edge: rgba(80, 60, 160, 0.14);
   --vt-shadow: 0 8px 24px rgba(60, 40, 140, 0.10);
-  --vt-aurora-1: rgba(139, 108, 255, 0.14);
-  --vt-aurora-2: rgba(34, 211, 238, 0.12);
-  --vt-aurora-3: rgba(255, 107, 154, 0.09);
+  --vt-aurora-1: color-mix(in srgb, var(--vt-a) calc(14% * var(--vt-aurora-strength)), transparent);
+  --vt-aurora-2: color-mix(in srgb, var(--vt-b) calc(12% * var(--vt-aurora-strength)), transparent);
+  --vt-aurora-3: color-mix(in srgb, var(--vt-c) calc(9% * var(--vt-aurora-strength)), transparent);
 }
 
 /* ---------- Background: soft aurora behind every note ---------- */
@@ -59,7 +232,7 @@ body.theme-dark {
   --vt-m0: #121116;          /* deepest: ribbon, title strip */
   --vt-m1: #17161c;          /* sidebars */
   --vt-m2: #1e1d24;          /* raised: active rows, tabs, menus */
-  --vt-m3: #26252d;          /* hover */
+  --vt-m3: color-mix(in srgb, var(--vt-m2) 94%, white);  /* hover */
   --vt-m-line: rgba(255, 255, 255, 0.05);
   --vt-m-lift: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 2px 4px rgba(0, 0, 0, 0.45), 0 6px 14px rgba(0, 0, 0, 0.25);
   --vt-m-press: inset 0 2px 4px rgba(0, 0, 0, 0.55);
@@ -74,7 +247,7 @@ body.theme-light {
   --vt-m0: #e4e2e8;
   --vt-m1: #ebe9ef;
   --vt-m2: #f6f5f8;
-  --vt-m3: #dedce4;
+  --vt-m3: color-mix(in srgb, var(--vt-m2) 91%, black);
   --vt-m-line: rgba(0, 0, 0, 0.07);
   --vt-m-lift: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 1px 3px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.06);
   --vt-m-press: inset 0 2px 3px rgba(0, 0, 0, 0.14);
@@ -122,7 +295,7 @@ body .workspace .workspace-ribbon.side-dock-ribbon::before,
   inset: 0;
   pointer-events: none;
   background-image: var(--vt-grain);
-  opacity: var(--vt-grain-o);
+  opacity: calc(var(--vt-grain-o) * var(--vt-grain-strength));
   mix-blend-mode: overlay;
   z-index: 1;
 }
@@ -344,7 +517,7 @@ body .workspace .workspace-ribbon.side-dock-ribbon::before,
 .markdown-rendered .block-language-csvtable,
 .markdown-rendered pre {
   background-color: var(--vt-glass);
-  backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(var(--vt-blur)) saturate(140%);
   border: 1px solid var(--vt-edge);
   border-radius: var(--vt-radius);
   box-shadow: var(--vt-shadow), inset 0 1px 0 var(--vt-glass-hi);
@@ -389,7 +562,7 @@ body .workspace .workspace-ribbon.side-dock-ribbon::before,
   border-radius: var(--vt-radius);
   overflow: hidden;
   background-color: var(--vt-glass);
-  backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(var(--vt-blur)) saturate(140%);
   box-shadow: var(--vt-shadow);
 }
 .markdown-rendered th,
@@ -443,7 +616,7 @@ body .workspace .workspace-ribbon.side-dock-ribbon::before,
   isolation: isolate;
   margin: 8px 0 24px;
   padding: 22px 22px 20px;
-  border-radius: 20px;
+  border-radius: calc(var(--vt-radius) + 6px);
   border: 1px solid var(--vt-edge);
   background: var(--vt-glass);
   box-shadow: var(--vt-shadow), inset 0 1px 0 var(--vt-glass-hi);
@@ -495,7 +668,7 @@ body .workspace .workspace-ribbon.side-dock-ribbon::before,
 
 .vt-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(var(--vt-card-min), 1fr));
   gap: 12px;
 }
 .markdown-rendered a.vt-card {
@@ -506,7 +679,7 @@ body .workspace .workspace-ribbon.side-dock-ribbon::before,
   border-radius: var(--vt-radius);
   border: 1px solid var(--vt-edge);
   background: var(--vt-glass);
-  backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(var(--vt-blur)) saturate(150%);
   color: var(--text-normal);
   text-decoration: none;
   top: 0;
@@ -519,6 +692,9 @@ body .workspace .workspace-ribbon.side-dock-ribbon::before,
   box-shadow: 0 16px 34px color-mix(in srgb, var(--vt-a) 25%, transparent);
   text-shadow: none;
 }
+/* An odd card out spans the full row instead of sitting alone */
+.vt-cards > .vt-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
 .vt-card-icon {
   display: grid;
   place-items: center;
@@ -540,6 +716,41 @@ body .workspace .workspace-ribbon.side-dock-ribbon::before,
 }
 .vt-card:hover .vt-card-title::after { transform: translateX(4px); }
 .vt-card-text { font-size: .86em; color: var(--text-muted); line-height: 1.4; }
+
+/* ---------- Switches from Settings → Style Settings ---------- */
+body.vt-plain-titles .markdown-rendered h1 {
+  background: none;
+  color: var(--h1-color, var(--text-normal));
+}
+body.vt-no-note-fade .markdown-preview-section > div { animation: none; }
+body.vt-static-glows .vt-hero::before,
+body.vt-static-glows .vt-hero::after,
+body.vt-static-glows .vt-kicker::before { animation: none; }
+body.vt-no-lift .markdown-rendered *:hover,
+body.vt-no-lift .markdown-rendered a.vt-card:hover { transform: none !important; }
+body.vt-no-lift .markdown-rendered a.internal-link:hover,
+body.vt-no-lift .markdown-rendered a.external-link:hover { top: 0; }
+
+body.vt-no-motion .markdown-preview-section > div,
+body.vt-no-motion .vt-hero::before,
+body.vt-no-motion .vt-hero::after,
+body.vt-no-motion .vt-kicker::before,
+body.vt-no-motion .menu,
+body.vt-no-motion .prompt,
+body.vt-no-motion .suggestion-container,
+body.vt-no-motion .popover.hover-popover,
+body.vt-no-motion .modal { animation: none !important; }
+body.vt-no-motion .nav-file-title:hover,
+body.vt-no-motion .nav-folder-title:hover,
+body.vt-no-motion .tree-item-self:hover,
+body.vt-no-motion .side-dock-ribbon-action:hover,
+body.vt-no-motion .clickable-icon:hover,
+body.vt-no-motion .clickable-icon:active,
+body.vt-no-motion .markdown-rendered *:hover { transform: none !important; }
+body.vt-no-motion .markdown-rendered *,
+body.vt-no-motion .vt-card { transition: none !important; }
+body.vt-no-motion .markdown-rendered a.internal-link:hover,
+body.vt-no-motion .markdown-rendered a.external-link:hover { top: 0; }
 
 /* ---------- Respect reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
