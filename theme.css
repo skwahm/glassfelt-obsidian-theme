@@ -1,0 +1,556 @@
+/* Glassfelt — an Obsidian theme.
+   Glassy aurora note area inside a dark, matte, tactile frame.
+   Violet accent by default; your own accent (Settings → Appearance) still wins.
+   Optional dashboard extras (.vault-dashboard, .vt-hero, .vt-cards): see README. */
+
+/* Default accent: violet #8b6cff. Obsidian applies a user-chosen accent
+   as an inline style on <body>, which overrides this. */
+body {
+  --accent-h: 253;
+  --accent-s: 100%;
+  --accent-l: 71%;
+}
+
+body {
+  --vt-a: #8b6cff;   /* violet */
+  --vt-b: #22d3ee;   /* cyan */
+  --vt-c: #ff6b9a;   /* pink */
+  --vt-grad: linear-gradient(120deg, var(--vt-a), var(--vt-b));
+  --vt-radius: 14px;
+  --vt-ease: cubic-bezier(.2, .8, .2, 1);
+}
+body.theme-dark {
+  --vt-glass: rgba(255, 255, 255, 0.045);
+  --vt-glass-hi: rgba(255, 255, 255, 0.08);
+  --vt-edge: rgba(255, 255, 255, 0.10);
+  --vt-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  --vt-aurora-1: rgba(139, 108, 255, 0.16);
+  --vt-aurora-2: rgba(34, 211, 238, 0.10);
+  --vt-aurora-3: rgba(255, 107, 154, 0.08);
+}
+body.theme-light {
+  --vt-glass: rgba(255, 255, 255, 0.55);
+  --vt-glass-hi: rgba(255, 255, 255, 0.8);
+  --vt-edge: rgba(80, 60, 160, 0.14);
+  --vt-shadow: 0 8px 24px rgba(60, 40, 140, 0.10);
+  --vt-aurora-1: rgba(139, 108, 255, 0.14);
+  --vt-aurora-2: rgba(34, 211, 238, 0.12);
+  --vt-aurora-3: rgba(255, 107, 154, 0.09);
+}
+
+/* ---------- Background: soft aurora behind every note ---------- */
+.workspace-split.mod-root .workspace-leaf-content[data-type="markdown"] {
+  background:
+    radial-gradient(900px 500px at 100% -10%, var(--vt-aurora-1), transparent 60%),
+    radial-gradient(700px 450px at -10% 30%, var(--vt-aurora-2), transparent 60%),
+    radial-gradient(800px 500px at 60% 120%, var(--vt-aurora-3), transparent 60%),
+    var(--background-primary);
+}
+.workspace-split.mod-root .workspace-leaf-content[data-type="markdown"] :is(.view-header, .view-content, .markdown-preview-view, .markdown-source-view, .cm-scroller, .cm-editor) {
+  background: transparent;
+}
+
+/* =====================================================================
+   App chrome: matte, tactile panels. Flat dark fills, a fine grain,
+   soft elevation shadows and pressed states. No shine, no glass.
+   The pages keep the glass look; the frame around them stays matte.
+   ===================================================================== */
+body.theme-dark {
+  --vt-m0: #121116;          /* deepest: ribbon, title strip */
+  --vt-m1: #17161c;          /* sidebars */
+  --vt-m2: #1e1d24;          /* raised: active rows, tabs, menus */
+  --vt-m3: #26252d;          /* hover */
+  --vt-m-line: rgba(255, 255, 255, 0.05);
+  --vt-m-lift: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 2px 4px rgba(0, 0, 0, 0.45), 0 6px 14px rgba(0, 0, 0, 0.25);
+  --vt-m-press: inset 0 2px 4px rgba(0, 0, 0, 0.55);
+  --vt-m-pop: 0 12px 32px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.5);
+  --vt-m-groove: rgba(0, 0, 0, 0.35);
+  --vt-m-side: rgba(0, 0, 0, 0.25);
+  --vt-m-tab: 0 -2px 6px rgba(0, 0, 0, 0.35);
+  --vt-row-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+  --vt-grain-o: .05;
+}
+body.theme-light {
+  --vt-m0: #e4e2e8;
+  --vt-m1: #ebe9ef;
+  --vt-m2: #f6f5f8;
+  --vt-m3: #dedce4;
+  --vt-m-line: rgba(0, 0, 0, 0.07);
+  --vt-m-lift: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 1px 3px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.06);
+  --vt-m-press: inset 0 2px 3px rgba(0, 0, 0, 0.14);
+  --vt-m-pop: 0 12px 30px rgba(0, 0, 0, 0.18), 0 2px 6px rgba(0, 0, 0, 0.1);
+  --vt-m-groove: rgba(0, 0, 0, 0.05);
+  --vt-m-side: rgba(60, 40, 120, 0.06);
+  --vt-m-tab: 0 -1px 4px rgba(60, 40, 120, 0.08);
+  --vt-row-shadow: 0 4px 12px rgba(60, 40, 140, 0.08);
+  --vt-grain-o: .02;
+}
+body {
+  --vt-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Surfaces */
+body .app-container .workspace { background-color: var(--vt-m0); }
+body .workspace .workspace-ribbon,
+body .workspace .workspace-ribbon.side-dock-ribbon::before,
+.titlebar,
+.workspace-split.mod-root > .workspace-tabs .workspace-tab-header-container {
+  background-color: var(--vt-m0);
+}
+.workspace-split.mod-left-split,
+.workspace-split.mod-right-split,
+.workspace-split.mod-left-split .workspace-leaf-content,
+.workspace-split.mod-right-split .workspace-leaf-content,
+.workspace-split.mod-left-split .workspace-tab-header-container,
+.workspace-split.mod-right-split .workspace-tab-header-container,
+.workspace-split.mod-left-split .nav-header,
+.workspace-split.mod-right-split .nav-header {
+  background-color: var(--vt-m1);
+}
+/* Fine grain so panels read as matte material, not flat paint */
+.workspace-ribbon,
+.workspace-split.mod-left-split,
+.workspace-split.mod-right-split,
+.workspace-split.mod-root > .workspace-tabs .workspace-tab-header-container {
+  position: relative;
+}
+.workspace-split.mod-left-split::after,
+.workspace-split.mod-right-split::after,
+.workspace-ribbon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--vt-grain);
+  opacity: var(--vt-grain-o);
+  mix-blend-mode: overlay;
+  z-index: 1;
+}
+/* Seams: a dark groove instead of a bright line */
+.workspace-ribbon { border-right: 1px solid var(--vt-m-line); box-shadow: 1px 0 0 var(--vt-m-groove); }
+.workspace-split.mod-left-split,
+.workspace-split.mod-right-split { border-color: var(--vt-m-line); }
+.workspace-split.mod-left-split { box-shadow: 2px 0 8px var(--vt-m-side); z-index: 2; }
+.workspace-split.mod-right-split { box-shadow: -2px 0 8px var(--vt-m-side); z-index: 2; }
+.workspace-split.mod-root > .workspace-tabs .workspace-tab-header-container {
+  border-bottom: 1px solid var(--vt-m-line);
+}
+
+/* Buttons and icons: raise on hover, press in on click */
+.side-dock-ribbon-action,
+.workspace-ribbon .clickable-icon,
+.nav-action-button,
+.view-header .clickable-icon,
+.workspace-tab-header-new-tab .clickable-icon,
+.workspace-sidedock-vault-profile .clickable-icon {
+  border-radius: 8px;
+  transition: background-color .15s, box-shadow .15s, transform .1s;
+}
+.side-dock-ribbon-action:hover,
+.workspace-ribbon .clickable-icon:hover,
+.nav-action-button:hover,
+.view-header .clickable-icon:hover,
+.workspace-tab-header-new-tab .clickable-icon:hover,
+.workspace-sidedock-vault-profile .clickable-icon:hover {
+  background-color: var(--vt-m3);
+  box-shadow: var(--vt-m-lift);
+  color: var(--text-normal);
+}
+.side-dock-ribbon-action:active,
+.workspace-ribbon .clickable-icon:active,
+.nav-action-button:active,
+.view-header .clickable-icon:active,
+.clickable-icon:active {
+  background-color: var(--vt-m1);
+  box-shadow: var(--vt-m-press);
+  transform: translateY(1px);
+}
+.nav-action-button.is-active {
+  background-color: var(--vt-m2);
+  box-shadow: var(--vt-m-press);
+  color: var(--vt-a);
+}
+
+/* File explorer and outline rows: soft raised tiles */
+.nav-file-title,
+.nav-folder-title,
+.tree-item-self {
+  border-radius: 7px;
+  transition: background-color .12s, box-shadow .12s, transform .08s;
+}
+.nav-file-title:hover,
+.nav-folder-title:hover,
+.tree-item-self.is-clickable:hover {
+  background-color: var(--vt-m2);
+  box-shadow: var(--vt-m-lift);
+}
+.nav-file-title:active,
+.nav-folder-title:active,
+.tree-item-self.is-clickable:active {
+  box-shadow: var(--vt-m-press);
+  transform: translateY(1px);
+}
+.nav-file-title.is-active,
+.tree-item-self.is-active {
+  background-color: var(--vt-m3);
+  color: var(--text-normal);
+  box-shadow: var(--vt-m-lift), inset 3px 0 0 var(--vt-a);
+}
+.nav-folder-title-content { font-weight: 600; }
+
+/* Tabs: the active tab is a raised slab joined to the page */
+.workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner {
+  background-color: var(--vt-m2);
+  border-radius: 8px;
+}
+.mod-root .workspace-tab-header.is-active {
+  background-color: var(--background-primary);
+  box-shadow: var(--vt-m-tab), inset 0 2px 0 var(--vt-a);
+}
+.workspace-tab-header.is-active .workspace-tab-header-inner-title {
+  color: var(--text-normal);
+  font-weight: 600;
+}
+.workspace-tab-header.is-active .workspace-tab-header-inner-icon { color: var(--vt-a); }
+
+/* View header: sits on the page itself, with a hairline that fades out at the ends */
+.mod-root .view-header {
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent, var(--vt-m-line) 15%, var(--vt-m-line) 85%, transparent) 1;
+  box-shadow: none;
+}
+.view-header-title { font-weight: 600; color: var(--text-muted); }
+.view-header-title-parent { color: var(--text-faint); }
+
+/* Vault switcher at the foot of the sidebar: same matte as the sidebar, set off by a groove */
+.workspace-sidedock-vault-profile {
+  background-color: var(--vt-m1);
+  border-top: 1px solid var(--vt-m-line);
+  box-shadow: inset 0 1px 0 var(--vt-m-groove);
+}
+.workspace-sidedock-vault-switcher,
+.workspace-drawer-vault-switcher {
+  border-radius: 8px;
+  transition: background-color .15s, box-shadow .15s;
+}
+.workspace-sidedock-vault-switcher:hover {
+  background-color: var(--vt-m2);
+  box-shadow: var(--vt-m-lift);
+}
+
+/* Status bar: solid raised chip */
+.status-bar {
+  background-color: var(--vt-m2);
+  border: 1px solid var(--vt-m-line);
+  border-radius: 10px 0 0 0;
+  box-shadow: var(--vt-m-lift);
+}
+
+/* Resize handles: a quiet accent when grabbed */
+.workspace-leaf-resize-handle { transition: background-color .15s; }
+.workspace-leaf-resize-handle:hover { background-color: color-mix(in srgb, var(--vt-a) 40%, transparent); }
+
+/* Menus, command palette, switcher, previews: solid matte cards */
+.menu,
+.prompt,
+.suggestion-container,
+.popover.hover-popover,
+.modal {
+  background-color: var(--vt-m2);
+  border: 1px solid var(--vt-m-line);
+  border-radius: 12px;
+  box-shadow: var(--vt-m-pop);
+  animation: vt-pop .14s var(--vt-ease);
+}
+@keyframes vt-pop {
+  from { opacity: 0; transform: translateY(3px) scale(.985); }
+  to   { opacity: 1; transform: none; }
+}
+.menu-item.selected:not(.is-disabled):not(.is-label),
+.suggestion-item.is-selected {
+  background-color: var(--vt-m3);
+  border-radius: 7px;
+  box-shadow: inset 3px 0 0 var(--vt-a);
+}
+
+/* Scrollbars: matte thumbs */
+::-webkit-scrollbar-thumb {
+  background-color: var(--vt-m3);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover { background-color: color-mix(in srgb, var(--vt-a) 35%, var(--vt-m3)); }
+
+/* ---------- Note opening: fade and slide in ---------- */
+@keyframes vt-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.markdown-preview-section > div {
+  animation: vt-rise .45s var(--vt-ease) backwards;
+}
+.markdown-preview-section > div:nth-child(2) { animation-delay: .03s; }
+.markdown-preview-section > div:nth-child(3) { animation-delay: .06s; }
+.markdown-preview-section > div:nth-child(4) { animation-delay: .09s; }
+.markdown-preview-section > div:nth-child(5) { animation-delay: .12s; }
+.markdown-preview-section > div:nth-child(n+6) { animation-delay: .15s; }
+
+/* ---------- Headings ---------- */
+.markdown-rendered h1 {
+  background: linear-gradient(110deg, var(--vt-a), var(--vt-b) 60%, var(--vt-c));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.markdown-rendered h2 {
+  position: relative;
+  padding-bottom: .3em;
+  letter-spacing: -0.01em;
+}
+.markdown-rendered h2::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 56px; height: 3px;
+  border-radius: 3px;
+  background: var(--vt-grad);
+  transition: width .4s var(--vt-ease);
+}
+.markdown-rendered h2:hover::after { width: 120px; }
+.markdown-rendered h3 { color: var(--vt-a); }
+
+/* ---------- Links: soft underline + slight lift ---------- */
+.markdown-rendered a.internal-link,
+.markdown-rendered a.external-link {
+  position: relative;
+  top: 0;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-underline-offset: 3px;
+  transition: top .2s var(--vt-ease), text-decoration-color .2s, text-shadow .2s;
+}
+.markdown-rendered a.internal-link:hover,
+.markdown-rendered a.external-link:hover {
+  top: -1px;
+  text-decoration-color: currentColor;
+  text-shadow: 0 0 12px color-mix(in srgb, var(--vt-a) 55%, transparent);
+}
+
+/* ---------- Glass panels: callouts, embeds, bases, code ---------- */
+.markdown-rendered .callout,
+.markdown-rendered .markdown-embed,
+.markdown-rendered .bases-embed,
+.markdown-rendered .block-language-base,
+.markdown-rendered .block-language-csvtable,
+.markdown-rendered pre {
+  background-color: var(--vt-glass);
+  backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid var(--vt-edge);
+  border-radius: var(--vt-radius);
+  box-shadow: var(--vt-shadow), inset 0 1px 0 var(--vt-glass-hi);
+  transition: transform .25s var(--vt-ease), box-shadow .25s var(--vt-ease), border-color .25s;
+}
+.markdown-rendered .callout:hover,
+.markdown-rendered .markdown-embed:hover,
+.markdown-rendered .bases-embed:hover,
+.markdown-rendered .block-language-base:hover,
+.markdown-rendered .block-language-csvtable:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--vt-a) 45%, transparent);
+  box-shadow: 0 14px 36px color-mix(in srgb, var(--vt-a) 22%, transparent), inset 0 1px 0 var(--vt-glass-hi);
+}
+.markdown-rendered .markdown-embed {
+  padding: 4px 18px;
+  border-left: 3px solid transparent;
+  border-image: none;
+  background-image: linear-gradient(var(--vt-glass), var(--vt-glass)),
+                    linear-gradient(180deg, var(--vt-a), var(--vt-b));
+  background-size: 100% 100%, 3px 100%;
+  background-repeat: no-repeat;
+  background-position: 0 0, 0 0;
+}
+.markdown-rendered .block-language-base,
+.markdown-rendered .bases-embed,
+.markdown-rendered .block-language-csvtable { padding: 6px 10px; overflow: hidden; }
+.markdown-rendered .callout { border-left: 3px solid rgb(var(--callout-color)); }
+
+/* Bases table rows */
+.bases-tr { transition: background-color .2s, transform .2s var(--vt-ease); }
+.bases-tbody .bases-tr:hover {
+  background-color: color-mix(in srgb, var(--vt-a) 10%, transparent);
+}
+.bases-thead { background: color-mix(in srgb, var(--vt-a) 8%, transparent); }
+
+/* ---------- Markdown and CSV tables ---------- */
+.markdown-rendered table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--vt-edge);
+  border-radius: var(--vt-radius);
+  overflow: hidden;
+  background-color: var(--vt-glass);
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: var(--vt-shadow);
+}
+.markdown-rendered th,
+.markdown-rendered td {
+  border: none;
+  border-bottom: 1px solid var(--vt-edge);
+}
+.markdown-rendered tr:last-child td { border-bottom: none; }
+.markdown-rendered thead th {
+  background: linear-gradient(120deg,
+    color-mix(in srgb, var(--vt-a) 18%, transparent),
+    color-mix(in srgb, var(--vt-b) 12%, transparent));
+  font-weight: 700;
+}
+.markdown-rendered tbody tr {
+  transition: transform .2s var(--vt-ease), background-color .2s, box-shadow .2s;
+}
+.markdown-rendered tbody tr:hover {
+  transform: translateY(-1px);
+  background-color: color-mix(in srgb, var(--vt-a) 9%, transparent);
+  box-shadow: var(--vt-row-shadow);
+}
+
+/* ---------- Dashboard pages (cssclasses: vault-dashboard) ---------- */
+.vault-dashboard .metadata-container,
+.vault-dashboard .mod-header .metadata-container { display: none !important; }
+.vault-dashboard .markdown-preview-sizer { padding-top: 12px; }
+
+/* "← Home" link as a pill */
+.vault-dashboard .markdown-rendered a.internal-link[data-href$="HOME.md"]:only-child {
+  display: inline-block;
+  padding: 3px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--vt-edge);
+  background: var(--vt-glass);
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  font-size: .9em;
+  transition: transform .2s var(--vt-ease), border-color .2s;
+}
+.vault-dashboard .markdown-rendered a.internal-link[data-href$="HOME.md"]:only-child:hover {
+  transform: translateX(-3px);
+  top: 0;
+  border-color: var(--vt-a);
+}
+
+/* ---------- Home hero and cards ---------- */
+.vt-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  margin: 8px 0 24px;
+  padding: 22px 22px 20px;
+  border-radius: 20px;
+  border: 1px solid var(--vt-edge);
+  background: var(--vt-glass);
+  box-shadow: var(--vt-shadow), inset 0 1px 0 var(--vt-glass-hi);
+}
+.vt-hero::before,
+.vt-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  filter: blur(10px);
+  opacity: .55;
+  animation: vt-drift 18s ease-in-out infinite alternate;
+}
+.vt-hero::before {
+  top: -160px; right: -60px;
+  background: radial-gradient(circle, var(--vt-a), transparent 65%);
+}
+.vt-hero::after {
+  bottom: -190px; left: -80px;
+  background: radial-gradient(circle, var(--vt-b), transparent 65%);
+  animation-duration: 23s;
+  animation-direction: alternate-reverse;
+}
+@keyframes vt-drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-60px, 30px) scale(1.15); }
+}
+.vt-kicker {
+  font-size: .78em;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+.vt-kicker::before {
+  content: "";
+  display: inline-block;
+  width: 8px; height: 8px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--vt-c);
+  box-shadow: 0 0 10px var(--vt-c);
+  animation: vt-pulse 2.4s ease-in-out infinite;
+}
+@keyframes vt-pulse { 50% { opacity: .35; } }
+
+.vt-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+.markdown-rendered a.vt-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: var(--vt-radius);
+  border: 1px solid var(--vt-edge);
+  background: var(--vt-glass);
+  backdrop-filter: blur(14px) saturate(150%);
+  color: var(--text-normal);
+  text-decoration: none;
+  top: 0;
+  transition: transform .25s var(--vt-ease), box-shadow .25s var(--vt-ease), border-color .25s;
+}
+.markdown-rendered a.vt-card:hover {
+  top: 0;
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--vt-a) 55%, transparent);
+  box-shadow: 0 16px 34px color-mix(in srgb, var(--vt-a) 25%, transparent);
+  text-shadow: none;
+}
+.vt-card-icon {
+  display: grid;
+  place-items: center;
+  width: 34px; height: 34px;
+  margin-bottom: 6px;
+  border-radius: 10px;
+  font-size: 18px;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--vt-a) 35%, transparent),
+    color-mix(in srgb, var(--vt-b) 25%, transparent));
+}
+.vt-card-title { font-weight: 700; }
+.vt-card-title::after {
+  content: "→";
+  display: inline-block;
+  margin-left: 6px;
+  color: var(--vt-b);
+  transition: transform .25s var(--vt-ease);
+}
+.vt-card:hover .vt-card-title::after { transform: translateX(4px); }
+.vt-card-text { font-size: .86em; color: var(--text-muted); line-height: 1.4; }
+
+/* ---------- Respect reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .markdown-preview-section > div,
+  .vt-hero::before,
+  .vt-hero::after,
+  .vt-kicker::before,
+  .menu, .prompt, .suggestion-container, .popover.hover-popover, .modal { animation: none !important; }
+  .nav-file-title:hover, .nav-folder-title:hover, .tree-item-self:hover,
+  .side-dock-ribbon-action:hover, .clickable-icon:hover { transform: none !important; }
+  .markdown-rendered *,
+  .vt-card { transition: none !important; }
+  .markdown-rendered *:hover { transform: none !important; }
+}
